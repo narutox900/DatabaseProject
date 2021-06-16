@@ -97,6 +97,16 @@ button.login__ghost {
 	margin-top: 5%;
 }
 
+.login__container select {
+	background-color: #eee;
+	border: none;
+	color: grey ;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
+	margin-top: 5%;
+}
+
 .login__container {
 	background-color: #fff;
 	border-radius: 10px;

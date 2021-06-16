@@ -13,6 +13,12 @@
 				<input type="text" placeholder="Name" id="signup_name" name="signup_name" required/>
 				<input type="email" placeholder="Email" id="signup_email" name="signup_email" required/>
 				<input type="password" placeholder="Password" id="signup_pswd" name="signup_pswd" required/>
+				<input type="date" id="signup_dob" name="signup_dob" value="2018-07-22" min="1921-01-01">
+				<select name="signup_expired" id="signup_expired">
+					<option value="10">$10 / 1 month</option>
+					<option value="35">$35 / 4 months</option>
+					<option value="100">$100 / 1 year</option>
+				</select>
 				<button type="submit">Sign Up</button>
 			</form>
 		</div>

@@ -49,14 +49,31 @@
             $this->userModel->setEmail(trim($_POST["signup_email"]));
             $this->userModel->setPassword(trim($_POST["signup_pswd"]));
             $this->userModel->setName(trim($_POST["signup_name"]));
-            // echo $this->userModel->getSigninStatus();
-            // return;
+            $this->userModel->setDateOfBirth($_POST["signup_dob"]);
+            $current_time = date('Y-m-d');
+            switch ($_POST["signup_expired"]) {
+                case 10:
+                    $expired_date = date('Y-m-d',strtotime($current_time. ' + 30 days'));
+                    break;
+                case 35:
+                    $expired_date = date('Y-m-d',strtotime($current_time. ' + 120 days'));
+                    break;
+                case 100:
+                    $expired_date = date('Y-m-d',strtotime($current_time. ' + 365 days'));
+                    break;
+                default:
+                    $this->view('login/signupfailed');
+              }
+            $this->userModel->setExpiredDate($expired_date);
+            $this->userModel->setPaid($_POST["signup_expired"]);
             if ($this->userModel->getSignUpStatus()){
                 $_SESSION['valid'] = true;
                 $_SESSION['timeout'] = time();
                 $_SESSION['username'] = $this->userModel->getName();
                 $_SESSION['role'] = $this->userModel->getRole();
                 $_SESSION['user_id'] = $this->userModel->getId();
+                $_SESSION['date_of_birth'] = $this->userModel->getDateOfBirth();
+                $_SESSION['expired_date'] = $this->userModel->getExpiredDate();
                 // echo "Hello";
                 $directory = getAbsolutePath();
                 header("Location: http://$_SERVER[HTTP_HOST]$directory");

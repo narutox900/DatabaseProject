@@ -8,8 +8,10 @@ class User extends Model
     private $password;
     private $role;
     private $name;
+    private $date_of_birth;
+    private $expired_date;
+    private $paid;
     
-
     function __construct()
     {
         parent::__construct();
@@ -60,6 +62,36 @@ class User extends Model
         return $this->role;
     }
 
+    public function setDateOfBirth($date_of_birth)
+    {
+        $this->date_of_birth = $date_of_birth;
+    }
+
+    public function getDateOfBirth()
+    {
+        return $this->date_of_birth;
+    }
+
+    public function setExpiredDate($expired_date)
+    {
+        $this->expired_date = $expired_date;
+    }
+
+    public function getExpiredDate()
+    {
+        return $this->expired_date;
+    }
+
+    public function setPaid($paid)
+    {
+        $this->paid = $paid;
+    }
+
+    public function getPaid()
+    {
+        return $this->paid;
+    }
+
     public function getAllUser()
     {
         $sql = "SELECT * from user";
@@ -80,14 +112,15 @@ class User extends Model
 
     public function getLoginStatus()
     {
-        $sql = "SELECT * FROM `user` WHERE email='".$this->email."'";/* AND password=".$this->password." ";*/
+        $sql = "SELECT * FROM `user` WHERE email='".$this->email."' AND password = '".$this->password."'";
         if ($this->db) {
             if ($this->db->query($sql)){
                 $userInfo = $this->db->query($sql);
                 $this->role = $userInfo[0]["User"]["role_id"];
                 $this->name = $userInfo[0]["User"]["name"];
                 $this->user_id = $userInfo[0]["User"]["user_id"];
-                
+                $this->date_of_birth = $userInfo[0]["User"]["date_of_birth"];
+                $this->expired_date = $userInfo[0]["User"]["expired_date"];
                 return 1;
             }
             else{
@@ -112,11 +145,14 @@ class User extends Model
             if (count($this->db->query($sql))!=0){
                 return 0;
             }else{
-                $sql = "INSERT INTO `user`(`email`, `name`, `password`, `role_id`) 
+                $sql = "INSERT INTO `user`(`email`, `name`, `password`, `role_id`, `date_of_birth`, `expired_date`,`paid`) 
                                     VALUES ( '".$this->email."', 
                                             '".$this->name."', 
                                             '".$this->password."', 
-                                            '2')";
+                                            '2',
+                                            '".$this->date_of_birth."',
+                                            '".$this->expired_date."',
+                                            '".$this->paid."')";
                 if($this->db->query($sql)){
                     $this->role = '2';
                     return 1;
