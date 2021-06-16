@@ -1,228 +1,284 @@
-<?php  
-	/**
-	 * 
-	 */
-	class Movie extends Model
-	{
-        private $movie_id;
-        private $title;
-        private $language;
-        private $year;
-        private $rating;
-        private $isAdult;
-        private $description;
-        private $poster;
-        private $genre = array();
+<?php
 
-		function __construct()
-		{
-			parent::__construct();
-		}
+/**
+ * 
+ */
+class Movie extends Model {
+    private $movie_id;
+    private $title;
+    private $language;
+    private $year;
+    private $rating;
+    private $isAdult;
+    private $description;
+    private $poster;
+    private $genre = array();
 
-        public function setMovieId($movie_id){
-		    $this->movie_id = $movie_id;
+    function __construct() {
+        parent::__construct();
+    }
+
+    public function setMovieId($movie_id) {
+        $this->movie_id = $movie_id;
+    }
+
+    public function getMovieId() {
+        return $this->movie_id;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setLanguage($language) {
+        $this->language = $language;
+    }
+
+    public function getLanguage() {
+        return $this->language;
+    }
+
+    public function setYear($year) {
+        $this->year = $year;
+    }
+
+    public function getYear() {
+        return $this->year;
+    }
+
+    public function setRating($rating) {
+        $this->rating = $rating;
+    }
+
+    public function getRating() {
+        return $this->rating;
+    }
+
+    public function setLength($length) {
+        $this->length = $length;
+    }
+
+    public function getLength() {
+        return $this->length;
+    }
+
+    public function setIsAdult($isAdult) {
+        $this->isAdult = $isAdult;
+    }
+
+    public function getIsAdult() {
+        return $this->isAdult;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setPublisher($publisher) {
+        $this->publisher = $publisher;
+    }
+
+    public function getPublisher() {
+        return $this->publisher;
+    }
+
+    public function setGenre($genre) {
+        $this->genre = $genre;
+    }
+
+    public function getGenre() {
+        return $this->genre;
+    }
+
+    public function setPoster($poster) {
+        $this->poster = $poster;
+    }
+
+    public function getPoster() {
+        return $this->poster;
+    }
+
+    function getAllBook() {
+        $sql = "SELECT * FROM `book`";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function getMovieId(){
-            return $this->movie_id;
+    public function getMovieById($id) {
+        $sql = "SELECT * FROM `movie` WHERE movie_id = '$id' ";
+        // echo $sql;
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-		public function setTitle($title){
-		    $this->title = $title;
+    public function getMovieByName($name) {
+        $sql = "SELECT * FROM `movie` WHERE title LIKE `%$name$` LIMIT 10";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function getTitle(){
-            return $this->title;
+    # de sang model actor
+    public function getActorById($id) {
+        $sql = "SELECT * FROM `actor` WHERE actor_id = '$id'";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function setLanguage($language){
-            $this->language = $language;
+    public function getDirectorById($id) {
+        $sql = "SELECT * FROM `director` WHERE director_id = '$id'";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function getLanguage(){
-            return $this->language;
+    public function getActorInMovieById($id) {
+        $sql = "SELECT actor_id, actor_name FROM `movie_actor` NATURAL JOIN `actor` WHERE movie_id = '$id'";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function setYear($year){
-            $this->year = $year;
+    public function getDirectorInMovieById($id) {
+        $sql = "SELECT director_id, director_name FROM `movie_director` NATURAL JOIN `director` WHERE movie_id = '$id'";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function getYear(){
-            return $this->year;
+    public function getMovieByActorId($id) {
+        $sql = "SELECT movie_id, title, poster FROM `movie_actor` NATURAL JOIN `movie` WHERE actor_id ='$id'";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function setRating($rating){
-            $this->rating = $rating;
+    public function getMovieByDirectorId($id) {
+        $sql = "SELECT movie_id, title, poster FROM `movie_director` NATURAL JOIN `movie` WHERE director_id ='$id'";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function getRating(){
-            return $this->rating;
+    // ADS:AD
+
+    function getBookByName($bookName) {
+        $sql = "SELECT * FROM `book` WHERE title LIKE '%" . $bookName . "%' ";
+        // echo $sql;
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function setLength($length){
-            $this->length = $length;
+    function getBookName($name) {
+        $sql = "SELECT * FROM `book` WHERE title LIKE '%" . $name . "%' ";
+        // echo $sql;
+        if ($this->db) {
+            return  $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function getLength(){
-            return $this->length;
+    function getLatestInsertedBook() {
+        $sql = "SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1 ";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        public function setIsAdult($isAdult){
-            $this->isAdult = $isAdult;
-        }
-
-        public function getIsAdult(){
-            return $this->isAdult;
-        }
-
-        public function setDescription($description){
-            $this->description = $description;
-        }
-
-        public function getDescription(){
-            return $this->description;
-        }
-
-        public function setPublisher($publisher){
-            $this->publisher = $publisher;
-        }
-
-        public function getPublisher(){
-            return $this->publisher;
-        }
-
-        public function setGenre($genre){
-            $this->genre = $genre;
-        }
-
-        public function getGenre(){
-            return $this->genre;
-        }
-
-        public function setPoster($poster){
-		    $this->poster = $poster;
-        }
-
-        public function getPoster(){
-            return $this->poster;
-        }
-
-		function getAllBook() {
-			$sql = "SELECT * FROM `book`";
-			if ($this->db) {
-				return $this->db->query($sql);
-			}
-			return NULL;
-		}
-
-        function getMovieById($id) {
-            $sql = "SELECT * FROM `movie` WHERE movie_id = ". $id ." ";
-            // echo $sql;
-            if ($this->db) {
-                return $this->db->query($sql);
-            }
-            return NULL;
-        }
-
-		function getBookByName($bookName) {
-            $sql = "SELECT * FROM `book` WHERE title LIKE '%". $bookName ."%' ";
-            // echo $sql;
-            if ($this->db) {
-                return $this->db->query($sql);
-            }
-            return NULL;
-        }
-
-        function getBookName($name) {
-            $sql = "SELECT * FROM `book` WHERE title LIKE '%". $name ."%' ";
-            // echo $sql;
-            if ($this->db) {
-                return  $this->db->query($sql);
-            }
-            return NULL;
-        }
-
-        function getLatestInsertedBook(){
-            $sql = "SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1 ";
-            if ($this->db) {
-                return $this->db->query($sql);
-            }
-            return NULL;
-        }
-
-		function addBookToDb() {
-		    $sql = "INSERT INTO `book` 
+    function addBookToDb() {
+        $sql = "INSERT INTO `book` 
                     (`book_id`, `title`, `author`, `description`, `rating`, `number_of_review`, `publisher`, `thumbnail_address`, `bookPDF`) 
                     VALUES 
-                    (NULL, '" . $this->title . "','" . $this->author . "','" . $this->description . "', '0', '0', '" . $this->publisher . "', '". $this->thumbnail . "', '".$this->PDF."');";
-            if ($this->db) {
-                if($this->db->query($sql)){
-                    $book_id = $this->getLatestInsertedBook();
-                    foreach($this->category as $category_value){
-                        $sql = "INSERT INTO `bookcategory` (`book_id`, `category_id`) VALUES ('".$book_id[0]['Book']['book_id']."', '".$category_value."')";
-                        $this->db->query($sql);
-                    }
-                };
-            }
-            return NULL;
+                    (NULL, '" . $this->title . "','" . $this->author . "','" . $this->description . "', '0', '0', '" . $this->publisher . "', '" . $this->thumbnail . "', '" . $this->PDF . "');";
+        if ($this->db) {
+            if ($this->db->query($sql)) {
+                $book_id = $this->getLatestInsertedBook();
+                foreach ($this->category as $category_value) {
+                    $sql = "INSERT INTO `bookcategory` (`book_id`, `category_id`) VALUES ('" . $book_id[0]['Book']['book_id'] . "', '" . $category_value . "')";
+                    $this->db->query($sql);
+                }
+            };
         }
+        return NULL;
+    }
 
-        function updateBook($id){
-		    $sql = "UPDATE `book` 
-                    SET `title`='".$this->title."',
-                        `author`='".$this->author."',
-                        `description`='".$this->description."',
-                        `publisher`='".$this->publisher."',
-                        `thumbnail_address`='".$this->thumbnail."',
-                        `bookPDF`='".$this->PDF."' 
-                    WHERE `book_id`=".$id;
-            if ($this->db) {
-                return $this->db->query($sql);
-            }
-            return NULL;
+    function updateBook($id) {
+        $sql = "UPDATE `book` 
+                    SET `title`='" . $this->title . "',
+                        `author`='" . $this->author . "',
+                        `description`='" . $this->description . "',
+                        `publisher`='" . $this->publisher . "',
+                        `thumbnail_address`='" . $this->thumbnail . "',
+                        `bookPDF`='" . $this->PDF . "' 
+                    WHERE `book_id`=" . $id;
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        function updateCategory($book_id)
-        {
-            echo $book_id;
-            $sql = "DELETE FROM `bookcategory` WHERE `book_id`=".$book_id;
+    function updateCategory($book_id) {
+        echo $book_id;
+        $sql = "DELETE FROM `bookcategory` WHERE `book_id`=" . $book_id;
+        $this->db->query($sql);
+        foreach ($this->category as $category_key => $value) {
+            print("<pre>" . print_r($category_key, true) . "</pre>");
+            $sql = "INSERT INTO `bookcategory` (`book_id`, `category_id`) VALUES ('" . $book_id . "', '" . $value . "')";
             $this->db->query($sql);
-            foreach($this->category as $category_key => $value){
-                print("<pre>".print_r($category_key,true)."</pre>");
-                $sql = "INSERT INTO `bookcategory` (`book_id`, `category_id`) VALUES ('".$book_id."', '".$value."')";
-                $this->db->query($sql);
-            }
-            return;
         }
+        return;
+    }
 
-        function deleteBook($id) {
-		    $sqlDeleteBookCategory = "DELETE FROM `bookcategory` WHERE book_id=".$id;
-		    $sql = "DELETE FROM `book` WHERE book_id = ".$id;
-            if ($this->db) {
-                $this->db->query($sqlDeleteBookCategory);
-                return $this->db->query($sql);
-            }
-            return NULL;
+    function deleteBook($id) {
+        $sqlDeleteBookCategory = "DELETE FROM `bookcategory` WHERE book_id=" . $id;
+        $sql = "DELETE FROM `book` WHERE book_id = " . $id;
+        if ($this->db) {
+            $this->db->query($sqlDeleteBookCategory);
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        function getAllPublisher(){
-            $sql = "SELECT DISTINCT publisher FROM book";
-            if ($this->db) {
-                return $this->db->query($sql);
-            }
-            return NULL;
+    function getAllPublisher() {
+        $sql = "SELECT DISTINCT publisher FROM book";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
+    }
 
-        function getAllAuthor(){
-            $sql = "SELECT DISTINCT author FROM book";
-            if ($this->db) {
-                return $this->db->query($sql);
-            }
-            return NULL;
+    function getAllAuthor() {
+        $sql = "SELECT DISTINCT author FROM book";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
-        
-    function getBookByFilter($filter)
-    {
+        return NULL;
+    }
+
+    function getBookByFilter($filter) {
         $sql = "SELECT * FROM `book`";
         if (isset($filter)) {
             if (count($filter["category"]) > 0 || count($filter["publisher"]) > 0 || count($filter["author"]) > 0 || $filter["rating"] > 0 || $filter["suggestion"] != "")
@@ -286,9 +342,9 @@
 
             if ($filter["suggestion"] != "") {                                        //Rating filter
                 if ($and == 1)
-                    $sql = $sql . "AND title like '%". $filter["suggestion"] ."%' ";
+                    $sql = $sql . "AND title like '%" . $filter["suggestion"] . "%' ";
                 else if ($and == 0)
-                     $sql = $sql . "title like '%". $filter["suggestion"] ."%' ";
+                    $sql = $sql . "title like '%" . $filter["suggestion"] . "%' ";
             }
 
             if ($filter["order"] == "old") {
@@ -300,7 +356,7 @@
             }
             if ($this->db) {
                 return $this->db->query($sql);
-            }else{
+            } else {
                 return NULL;
             }
         } else {
