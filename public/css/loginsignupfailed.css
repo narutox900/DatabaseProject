@@ -1,0 +1,102 @@
+.login__failed {
+	display: block;
+	width: 80%;
+	height: 250px;
+	margin: 0 auto;
+	margin-top: 50px;
+  align-content: center;
+	justify-content: center;
+	background: url(../image/login_signup_failed.jpg) center center no-repeat;
+	background-size: cover;
+	 overflow: hidden;
+	position: relative;
+	/*min-height: 100vh; */
+}
+
+.login__failed__section-header {
+  /* margin-top: 30px; */
+	margin-bottom: 20px;
+	position: relative;
+	padding-bottom: 20px;
+  }
+  
+.login__failed__section-header::before {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 60px;
+	height: 5px;
+	background: #f82249;
+	bottom: 0;
+	left: calc(50% - 25px);
+  }
+  
+.login__failed__section-header h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 60px;
+	color: wheat;
+    /*color: #fff;*/
+  }
+  
+.login__failed__section-header p {
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 500;
+	color: wheat;
+  }
+  .login__failed p {
+	/*color: #fff;*/
+  }
+
+  .login__failed p a:visited {
+	  color: wheat;
+  }
+  
+  .login__failed input {
+	/*background: #fff;*/
+	color: #060c22;
+	border: 0;
+	outline: none;
+	margin: 0;
+	padding: 9px 20px;
+	border-radius: 50px;
+	font-size: 14px;
+  }
+  
+  .login__failed button {
+	border: 0;
+	padding: 9px 25px;
+	cursor: pointer;
+	background: #f82249;
+	/*color: #fff;*/
+	transition: all 0.3s ease;
+	outline: none;
+	font-size: 14px;
+	border-radius: 50px;
+  }
+  
+  .login__failed button:hover {
+	background: #e0072f;
+  }
+  
+.login__failed__form-row {
+	display: flex;
+	justify-content: center;
+  }
+  
+.login__failed__col-auto {
+	margin: 5px 5px 5px 5px;
+  }
+
+  @media only screen and (min-width: 768px) {
+	.subscribe input {
+	  min-width: 400px;
+  }
+  
+  }

@@ -1,0 +1,344 @@
+.category__banner {
+	display: block;
+	background-color: white;
+	width: 80%;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	/* background-image: url("../image/category_banner_1.jpg"); */
+	height: 20rem;
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: cover; 
+	text-align: center;
+	display: flex;
+	justify-content: center;
+  	align-items: center;
+	font-size: 1.75rem;
+}
+
+.category__product {
+	padding-top: 50px;
+	width: 80%;
+	min-height: 400px;
+	background-color: var(--body-bg);
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+  	/* align-items: flex-start; */
+	  align-items: stretch;
+}
+
+.category__product__filter {
+	flex-basis: 30%;
+	height: auto;
+	/* height: 200px; */
+	/* float: left; */
+	/* background-color: gray; */
+	margin-right: 1rem;
+	border: 2px solid #ededed;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.category__product__cards {
+	flex-basis: 70%;
+	padding-left: 10px;
+	/* height: 200px; */
+	/* float: left; */
+}
+
+/******** Subscribe ***********/
+.category__contact {
+	display: block;
+	width: 80%;
+	height: 250px;
+	margin: 0 auto;
+	margin-top: 50px;
+	justify-content: center;
+	background: url(../image/subscribe-background.jpg) center center no-repeat;
+	background-size: cover;
+	 overflow: hidden;
+	position: relative;
+	/*min-height: 100vh; */
+}
+
+.category__contact__section-header {
+	margin-bottom: 20px;
+	position: relative;
+	padding-bottom: 20px;
+  }
+  
+.category__contact__section-header::before {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 60px;
+	height: 5px;
+	background: #f82249;
+	bottom: 0;
+	left: calc(50% - 25px);
+  }
+  
+.category__contact__section-header h2 {
+	font-size: 36px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 10px;
+  }
+  
+.category__contact__section-header p {
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 500;
+	color: #9195a2;
+  }
+  
+.category__contact__section-header h2 {
+	margin-top: 40px;
+	color: #fff;
+}
+  .category__contact p {
+	color: #fff;
+  }
+  
+  .category__contact input {
+	background: #fff;
+	color: #060c22;
+	border: 0;
+	outline: none;
+	margin: 0;
+	padding: 9px 20px;
+	border-radius: 50px;
+	font-size: 14px;
+  }
+  
+  .category__contact button {
+	border: 0;
+	padding: 9px 25px;
+	cursor: pointer;
+	background: #f82249;
+	color: #fff;
+	transition: all 0.3s ease;
+	outline: none;
+	font-size: 14px;
+	border-radius: 50px;
+  }
+  
+  .category__contact button:hover {
+	background: #e0072f;
+  }
+  
+.category__contact__form-row {
+	display: flex;
+	justify-content: center;
+  }
+  
+.category__contact__col-auto {
+	margin: 5px 5px 5px 5px;
+  }
+  
+  @media only screen and (min-width: 768px) {
+	.subscribe input {
+	  min-width: 400px;
+  }
+  
+  }
+
+/******** Subscribe ***********/
+.category__product__filter__by__category, .category__product__filter__by__publisher, .category__product__filter__by__author{
+	padding-left: 2rem;
+	padding-top: 2rem;
+}
+.category__product__filter__by__category h3, .category__product__filter__by__publisher h3, .category__product__filter__by__author h3{
+	padding-bottom: 1rem ;
+}
+
+/* Customize the label (the container) */
+.filter__by__category__container, 
+.filter__by__publisher__container, 
+.filter__by__author__container,
+.category__product__filter__by__rating {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 18px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	/* display: flex;
+	flex-direction: row;
+	justify-content: center;
+  	align-items: center; */
+  }
+  .category__product__filter__by__rating {
+	  padding-right: 40px;
+  }
+  .category__product__filter__by__rating input[type=button]{
+	  font-size: 18px;
+	  padding: 0.4rem;
+	  width: 100%;
+	  text-align: left;
+	  cursor: pointer;
+  }
+  .category__product__filter__by__rating{
+	  margin-top: 2rem;
+  }
+  .filter__by__rating__choice{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: center;
+  	align-items: flex-start;
+	border: 2px solid #ededed;
+	/* position: relative; */
+  }
+  .filter__by__rating__choice__unshown{
+	  display: none !important;
+  }
+  #filter__by__rating__choice__button{
+	  flex-basis: 100%;
+	  background-color: white;
+	  border: none;
+  }
+  #filter__by__rating__choice__button:hover{
+	  background-color: gainsboro;
+	  font-weight: bold;
+  }
+  .filter__by__category__container p, 
+  .filter__by__publisher__container p,
+  .filter__by__author__container p{
+	  padding-left: 0.2rem;
+  }
+  /* Hide the browser's default checkbox */
+  .filter__by__category__container input, 
+  .filter__by__publisher__container input,
+  .filter__by__author__container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+  }
+  /* Create a custom checkbox */
+  .filter__by__category__checkmark, 
+  .filter__by__publisher__checkmark,
+  .filter__by__author__checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	border: 1px solid gray;
+	border-radius: 50%;
+	/* background-color: #eee; */
+  }
+  .filter__by__rating__container{
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: center;
+  		align-items: center;
+		  margin-bottom: 0.1rem;
+	border-radius: 2rem;
+	padding-left: 0.6rem;
+	border: 3px solid #ededed;
+  }
+  .filter__by__rating__container .fa-caret-down{
+	  padding-right: 1rem;
+	  cursor: pointer;
+  }
+  #filter__by__rating__button{
+	background-color: white;
+	border: none;
+}
+  /* When the checkbox is checked, add a blue background */
+  .filter__by__category__container input:checked ~ .filter__by__category__checkmark, 
+  .filter__by__publisher__container input:checked ~ .filter__by__publisher__checkmark,
+  .filter__by__author__container input:checked ~ .filter__by__author__checkmark {
+	background-color: #c0392b;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .filter__by__category__checkmark:after, 
+  .filter__by__publisher__checkmark::after,
+  .filter__by__author__checkmark::after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .filter__by__category__container input:checked ~ .filter__by__category__checkmark:after, 
+  .filter__by__publisher__container input:checked ~ .filter__by__publisher__checkmark:after,
+  .filter__by__author__container input:checked ~ .filter__by__author__checkmark:after {
+	display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .filter__by__category__container .filter__by__category__checkmark:after, 
+  .filter__by__publisher__container .filter__by__publisher__checkmark:after,
+  .filter__by__author__container .filter__by__author__checkmark:after {
+	left: 7px;
+	top: 3px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  }
+
+  .category__dropdown__div{
+	text-align: right !important;
+	user-select: none;
+	outline: none;
+}
+
+  .category_dropdown {
+    width: 40%;
+    height: 45px;
+    border-radius: 30px;
+    padding: 11px 19px 11px 18px;
+    color: #140c40;
+    line-height: 20px;
+    border: 1px solid #eee1e0;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    outline: none;
+    position: relative;
+    text-align: left!important;
+    user-select: none;
+}
+
+.category_dropdown select option{
+	width: 40%;
+    height: 45px;
+    border-radius: 30px;
+    padding: 11px 19px 11px 18px;
+    color: #140c40;
+    line-height: 20px;
+    border: 1px solid #eee1e0;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    outline: none;
+    position: relative;
+    text-align: left!important;
+    user-select: none;
+}

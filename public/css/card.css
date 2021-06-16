@@ -1,0 +1,38 @@
+.card{
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    float: left;
+    margin: 15px;
+}
+
+.card-caption p{
+    font-size: 14px;
+    margin-bottom: 11px;
+    color: #9498A7;
+}
+
+.card-caption .card-review-div {
+    align-items: center !important;
+    justify-content: space-between !important;
+    display: flex !important;
+}
+
+.card .card-caption .card-review-div .card-review .card-rating i{
+    font-size: 13px;
+    color: #ff5700;
+}
+
+.card-review-div p span{
+    color: #ff782e;
+    font-size: 15px;
+}
+
+.card-price span{
+    cursor: pointer;
+    font-weight: 500;
+    color: #ff1616;
+    font-size: 22px;
+}
+

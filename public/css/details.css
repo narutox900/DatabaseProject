@@ -1,0 +1,108 @@
+.book_detail_section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;   
+    padding-left: 6rem;
+    padding-right: 6rem;
+}
+.book_detail_section_1{
+    background-color: rgb(224, 26, 26);
+    width: 85%;
+    height: 500px;
+    margin: 0 auto;
+}
+
+.book_detail_section_2{
+    padding: 6rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
+}
+.book_detail_section_2_nav{
+    padding-bottom: 2rem;
+}
+.book_detail_section_2_nav input[type=button]{
+    font-size: 18px;
+    padding: 0.7rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color: white;
+    cursor: pointer;
+    border: 2px solid #eee1e0;
+    margin-left: 0.5rem;
+    border-radius: 2rem;
+}
+.book_detail_description_button_chose{
+    background-color: red !important;
+    color: white !important;
+}
+.book_detail_section_2_text_section p{
+    font-size: 18px;
+    font-weight: lighter;
+}
+.book_detail_section_2_item{
+    display: none;
+}
+.book_detail_section_2_item_show{
+    display: block !important;
+}
+.card-comment-container{
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+  	align-items: flex-start;
+}
+
+.book_detail_section_1 .window__slider__img-container{
+    padding-top: 40px;
+}
+.book_detail_section_1 .window__slider__img-container img{
+    float: left; 
+    top: 20%; 
+    padding-left: 70px; 
+    padding-right: 70px;
+    padding-bottom: 70px;
+    max-height: 30rem;
+}
+.book_detail_section_1 .window__slider__img-container .window__right{
+    float: left; 
+    top: auto;
+}
+.book_detail_section_1 .window__slider__img-container .window__right h1{
+    max-width: 35rem;
+}
+
+.window__slider .window__slider__img-container{
+    padding-top: 40px;
+}
+.window__slider .window__slider__img-container img{
+    float: left; 
+    top: 20%; 
+    padding-left: 70px; 
+    padding-right: 70px;
+    padding-bottom: 70px;
+    max-height: 30rem;
+}
+.window__slider .window__slider__img-container .window__right{
+    float: left; 
+    top: auto;
+}
+.window__slider .window__slider__img-container .window__right h1{
+    max-width: 35rem;
+}
+
+.detail-button {
+    font-size: 14px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: #FF1616;
+    border: 1px solid white;
+    font-weight: bold;
+    height: 40px;
+    width: 140px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 40px;  
+  }

@@ -1,0 +1,178 @@
+.window {
+  position: absolute;
+  --dark-background: #5a5a5a;
+  --light-background: #8a8a8a;
+  --light-foreground: #ededed;
+  margin: auto;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #FF1616;
+}
+
+.window__current-img {
+  display: flex;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+.window__current-img__btn {
+  background-color: transparent;
+  opacity: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  width: 16px;
+  height: 16px;
+}
+
+.window__current-img__btn:not(:last-child) {
+  margin-right: 4px;
+}
+
+.window__current-img__btn:active {
+  transform: scale(0.8);
+}
+
+.window__slide-left {
+  transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  -o-transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  -moz-transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  -webkit-transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  opacity: 1;
+  background-color: var(--dark-background);
+  color: var(--light-foreground);
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+
+.window__slide-left:hover {
+  opacity: 1;
+}
+
+.window__slide-left:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.window__slide-left > i {
+  transform: translateX(-1px);
+}
+
+.window__slide-right {
+  /*box-shadow: 0px 1px 2px var(--shadow),*/
+  /*-1px -1px 3px var(--shadow);*/
+  transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  -o-transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  -moz-transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  -webkit-transition: background-color 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  opacity: 0.6;
+  background-color: var(--dark-background);
+  color: var(--light-foreground);
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+
+.window__slide-right:hover {
+  background-color: var(--light-background);
+  opacity: 0.9;
+}
+
+.window__slide-right:active {
+  transform: translateY(-50%) scale(0.95);
+  -moz-transform: translateY(-50%) scale(0.95);
+  -ms-transform: translateY(-50%) scale(0.95);
+  -o-transform: translateY(-50%) scale(0.95);
+  -webkit-transform: translateY(-50%) scale(0.95);
+}
+
+.window__slide-right > i {
+  transform: translateX(1px);
+  -moz-transform: translateX(1px);
+  -ms-transform: translateX(1px);
+  -webkit-transform: translateX(1px);
+  -o-transform: translateX(1px);
+}
+
+.window__slider {
+  transition: transform 0.5s ease-in-out;
+  -o-transition: transform 0.5s ease-in-out;
+  -moz-transition: transform 0.5s ease-in-out;
+  -webkit-transition: transform 0.5s ease-in-out;
+  display: flex;
+}
+
+.window__slider__img-container {
+  transition: opacity 0.5s ease-in-out 0.375s;
+  -o-transition: opacity 0.5s ease-in-out 0.375s;
+  -moz-transition: opacity 0.5s ease-in-out 0.375s;
+  -webkit-transition: opacity 0.5s ease-in-out 0.375s;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.window__slider__img-container--opacity {
+  opacity: 1;
+  display: inline-flex;
+  /* flex-direction: row; */
+}
+
+.window__right {
+  position: absolute;
+  top: 30%;
+  padding-left: 40%;
+  color: white;
+  line-height: 2;
+  width: 100%;
+}
+
+.window__right h1{
+  font-size: 40px;
+}
+
+
+.window__right button:hover {
+  background-color: white;
+  color: #FF1616;
+  cursor: pointer;
+}
+img {
+  display: block;
+}

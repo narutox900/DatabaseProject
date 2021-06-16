@@ -1,0 +1,117 @@
+.footer{
+    margin-top: 20px;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-family: inherit;
+    background-color: #fef4f4;
+    display: inline-flex;
+    flex-direction: row;
+    padding-left: 80px;
+    padding-right: 50px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    width: 100%;
+    /* margin-bottom: 5px; */
+}
+.about-us, .contact, .subscription{
+    padding: 15px 20px;
+}
+.about-us{
+    flex-basis: 25%;
+    margin-right: 60px;
+    margin-left: 25px;
+}
+.contact{
+    flex-basis: 32%;
+    /* align-self: baseline; */
+    margin-right: 20px;
+}
+.subscription{
+    flex-basis: 33%;
+}
+.about-us-logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.about-us-logo img{
+    height: 70px;
+}
+.about-us-logo-name{
+    display: flex;
+    flex-direction: row;
+    font-weight: bolder;
+    font-size: x-large;
+}
+.about-us-logo-name-black{
+    color: black;
+}
+.about-us-logo-name-pink{
+    color: palevioletred;
+}
+.about-us-slogan{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+.about-us-description{
+    margin-right: 40px;
+    margin-top: 5px;
+}
+
+.footer h3{
+    padding-top: 19px;
+    padding-bottom: 10px;
+    font-size: x-large;
+}
+.contact-phone, .contact-mail{
+    display: flex;
+    flex-direction: row;
+    padding-top: 15px;
+    align-items: center;
+}
+.fa-phone, .fa-envelope{
+    width: 30px;
+}
+.contact-phone p, .contact-mail p{
+    font-size: large;
+}
+.contact-social{
+    padding-top: 15px;
+}
+.fab{
+    color: black;
+    padding-right: 5px;
+}
+.subscription-header p{
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: large;
+    font-weight: bold;
+}
+.subscription-email input[type=email]{
+    font-size: large;
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 6px 10px;
+    display: table-cell;
+    width: 70%;
+    margin-bottom: 10px;
+}
+.subscription-email input[type=email]:focus{
+    outline: none;
+}
+.subscription-button button{
+    font-size: large;
+    font-weight: bold;
+    background-color: palevioletred;
+    border: 1px solid;
+    border-radius: 20px;
+    display: table-cell;
+    width: 30%;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+.subscription-button button:hover{
+    text-decoration: underline;
+}
