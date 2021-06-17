@@ -131,6 +131,174 @@ class Movie extends Model {
         return NULL;
     }
 
+    public function getMovieFromSearch($title, $yearFrom, $yearEnd, $ratingFrom, $ratingEnd, $genres, $isAdult, $language, $plot, $actor, $director, $runtimeFrom, $runtimeEnd, $display, $order) {
+        if ($yearEnd >= $yearFrom && ($yearEnd != 0 || $yearFrom != 0)) {
+            $year = true;
+        } else {
+            $year = false;
+        }
+        if ($ratingEnd >= $ratingFrom && ($ratingEnd != 0 || $ratingFrom != 0)) {
+            $rating = true;
+        } else {
+            $rating = false;
+        }
+        if ($runtimeEnd >= $runtimeFrom && ($runtimeEnd != 0 || $runtimeFrom != 0)) {
+            $runtime = true;
+        } else {
+            $runtime = false;
+        }
+
+        if ($actor) {
+            $actor_query = " NATURAL JOIN `movie_actor` NATURAL JOIN `actor`";
+            $actor_condition = " actor_name LIKE '%$actor%'";
+        }
+
+        if ($director) {
+            $director_query = " NATURAL JOIN `movie_director` NATURAL JOIN `director`";
+            $director_condition = " director_name LIKE '%$director%'";
+        }
+
+
+        if ($genres) {
+            $genres_query = " NATURAL JOIN `movie_genre`";
+            $genres_condition = " genre_id IN (";
+            $i = 0;
+            foreach ($genres as $genre) {
+                $i++;
+                if ($i != 1) {
+                    $genres_condition .= ",";
+                }
+                $genres_condition .= " '$genre'";
+            }
+            $genres_condition .= ")";
+        }
+        $display_query = "";
+        switch ($display) {
+            case 0:
+                $display_query = " LIMIT 50";
+                break;
+            case 1:
+                $display_query = " LIMIT 100";
+                break;
+            case 2:
+                $display_query = " LIMIT 150";
+                break;
+            default:
+                break;
+        }
+
+        $order_query = "";
+        switch ($order) {
+            case 0:
+                $order_query = " ORDER BY rating";
+                break;
+            case 1:
+                $order_query = " ORDER BY rating DESC";
+                break;
+            case 2:
+                $order_query = " ORDER BY title";
+                break;
+            case 3:
+                $order_query = " ORDER BY title DESC";
+                break;
+            case 4:
+                $order_query = " ORDER BY year";
+                break;
+            case 5:
+                $order_query = " ORDER BY year DESC";
+                break;
+            case 6:
+                $order_query = " ORDER BY length";
+                break;
+            case 7:
+                $order_query = " ORDER BY length DESC";
+                break;
+            default:
+                break;
+        }
+
+
+        $query = " SELECT movie_id, title, year, rating, length FROM `movie`";
+        $and = " AND";
+        $flag = false;
+        if ($actor) {
+            $query .= $actor_query;
+        }
+        if ($director) {
+            $query .= $director_query;
+        }
+        if ($genres) {
+            $query .= $genres_query;
+        }
+        $query .= " WHERE";
+        if ($year) {
+            $query .= " year BETWEEN $yearFrom AND $yearEnd";
+            $flag = true;
+        }
+        if ($rating) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= " rating BETWEEN $ratingFrom AND $ratingEnd";
+            $flag = true;
+        }
+        if ($runtime) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= " length BETWEEN $runtimeFrom AND $runtimeEnd";
+            $flag = true;
+        }
+        if (!$isAdult) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= " isAdult = false";
+            $flag = true;
+        }
+        if ($language) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= " language = '$language'";
+            $flag = true;
+        }
+        if ($plot) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= " description LIKE '%$plot%'";
+            $flag = true;
+        }
+        if ($actor) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= $actor_condition;
+            $flag = true;
+        }
+        if ($director) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= $director_condition;
+            $flag = true;
+        }
+        if ($genres) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= $director_condition;
+            $flag = true;
+        }
+        $query .= $order_query;
+        $query .= $display_query;
+        if ($this->db) {
+            return $this->db->query($query);
+        }
+        return NULL;
+    }
+
     # de sang model actor
     public function getActorById($id) {
         $sql = "SELECT * FROM `actor` WHERE actor_id = '$id'";
