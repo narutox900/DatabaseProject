@@ -31,14 +31,14 @@
                             <td>
                                 <p>From:</p>
                             </td>
-                            <td><input type="number" name="filter-min-year" id="filter-min-year"></td>
+                            <td><input type="number" name="filter-min-year" id="filter-min-year" value="0"></td>
                         </tr>
 
                         <tr>
                             <td>
                                 <p>To:</p>
                             </td>
-                            <td><input type="number" name="filter-max-year" id="filter-max-year"></td>
+                            <td><input type="number" name="filter-max-year" id="filter-max-year" value="0"></td>
                         </tr>
                     </table>
                 </label>
