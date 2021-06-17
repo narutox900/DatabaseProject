@@ -16,8 +16,9 @@ $actual_link = "http://$_SERVER[HTTP_HOST]$directory";
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(dirname(__FILE__)));
-
+define('CURRENT_TIME', date('Y-m-d'));
 define('LINK', $actual_link);
+define('POSTER_URL', 'https://image.tmdb.org/t/p/w300');
 
 if (isset($_GET['url'])) {
 	$url = $_GET['url'];

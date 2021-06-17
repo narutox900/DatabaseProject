@@ -1,3 +1,4 @@
+
 <style>
     .category__banner {
         background-image: url("<?php echo LINK; ?>/image/slider_1.jpg");
@@ -11,13 +12,13 @@
 <div class="category__product">
     <div class="category__product__filter">
 
-        <form action="searchQuery" method="POST">
-
+        <form action="search/searchQuery" method="POST">
+            <input type="hidden" name="search" value="1">
             <div class="category__product__filter__by__category">
                 <h3>Title</h3>
                 <label>
-                    <label for=""></label>
-                    <input type="text" name="filter-name" id="filter-name">
+                    <label></label>
+                    <input type="text" name="filter-title" id="filter-title">
                     <p style="font-style: italic;font-size:13px;">e.g. The Godfather</p>
                 </label>
             </div>
@@ -51,14 +52,14 @@
                             <td>
                                 <p>From:</p>
                             </td>
-                            <td><input type="number" name="filter-min-year" id="filter-min-year" min="0" max="10" value="0"></td>
+                            <td><input type="number" name="filter-min-rating" id="filter-min-rating" min="0" max="10" value="0"></td>
                         </tr>
 
                         <tr>
                             <td>
                                 <p>To:</p>
                             </td>
-                            <td><input type="number" name="filter-max-year" id="filter-max-year" min="0" max="10" value="10"></td>
+                            <td><input type="number" name="filter-max-rating" id="filter-max-rating" min="0" max="10" value="10"></td>
                         </tr>
                     </table>
                 </label>
@@ -66,48 +67,31 @@
 
             <div class="category__product__filter__by__category">
                 <h3>Genres</h3>
-                <label class="filter__by__category__container">
-                    <p>All</p>
-                    <input type="checkbox" checked="check" id="all_category_checkbox">
-                    <span class="filter__by__category__checkmark"></span>
-                </label>
-
-                <label class="filter__by__category__container">
-                    <p style="display: none;">12</p>
-                    <p>Category 1</p>
-                    <input type="checkbox" class="category_checkbox">
-                    <span class="filter__by__category__checkmark"></span>
-                </label>
-                <label class="filter__by__category__container">
-                    <p style="display: none;">12</p>
-                    <p>Category 2</p>
-                    <input type="checkbox" class="category_checkbox">
-                    <span class="filter__by__category__checkmark"></span>
-                </label>
-                <label class="filter__by__category__container">
-                    <p style="display: none;">12</p>
-                    <p>Category 3</p>
-                    <input type="checkbox" class="category_checkbox">
-                    <span class="filter__by__category__checkmark"></span>
-                </label>
+                <select name="filter-genre[]" id="filter-genre" multiple style="width:160px;">
+                    <?php
+                    foreach ($data[2] as $value) {
+                        echo "<option value='" . $value['Genre']['genre_id'] . "'>" . $value['Genre']['genre_name'] . "</option>";
+                    };
+                    ?>
+                </select>
             </div>
 
             <div class="category__product__filter__by__category">
                 <h3>Adult Movie(18+ tag)</h3>
                 <label class="filter__by__category__container">
-                    <input type="checkbox" checked="check" id="all_category_checkbox">
+                    <input type="checkbox" id="filter-isadult" name="filter-isadult" value="1">
                     <span class="filter__by__category__checkmark"></span>
                 </label>
             </div>
 
             <div class="category__product__filter__by__category">
                 <h3>Language</h3>
-                <select name="" id="" multiple style="padding-left: 10px;padding-right:80px;">
-                    <option value="">English</option>
-                    <option value="">Vietnamese</option>
-                    <option value="">English</option>
-                    <option value="">English</option>
-                    <option value="">English</option>
+                <select name="filter-language[]" id="filter-language" multiple style="width:160px;">
+                    <?php
+                    foreach ($data[1] as $value) {
+                        echo "<option value='" . $value['Movie']['language'] . "'>" . $value['Movie']['language'] . "</option>";
+                    };
+                    ?>
                 </select>
             </div>
 
@@ -133,7 +117,7 @@
                 <h3>Directors</h3>
                 <label>
                     <label for=""></label>
-                    <input type="text" name="filter-actor" id="filter-actor">
+                    <input type="text" name="filter-director" id="filter-director">
                     <p style="font-style: italic;font-size:13px;">e.g. George Lucas</p>
                 </label>
             </div>
@@ -146,14 +130,14 @@
                             <td>
                                 <p>From:</p>
                             </td>
-                            <td><input type="number" name="filter-min-year" id="filter-min-year" min="0" max="300" value="0"></td>
+                            <td><input type="number" name="filter-min-length" id="filter-min-length" min="0" value="0"></td>
                         </tr>
 
                         <tr>
                             <td>
                                 <p>To:</p>
                             </td>
-                            <td><input type="number" name="filter-max-year" id="filter-max-year" min="0" max="300" value="300"></td>
+                            <td><input type="number" name="filter-max-length" id="filter-max-length" min="0" value="500"></td>
                         </tr>
                     </table>
                 </label>
@@ -163,13 +147,13 @@
                 <h3>Display Options</h3>
                 <div class="category__dropdown__div" tabindex="0">
                     <p>Display:</p>
-                    <select name="browse_dropdown" class="category_dropdown" id="order_filter" onchange="getOrderFilter()">
+                    <select name="filter-display" class="category_dropdown" id="filter-display">
                         <option value="50">50 movies</option>
                         <option value="100">100 movies</option>
                         <option value="150">150 movies</option>
                     </select>
                     <p>Sorted By:</p>
-                    <select name="browse_dropdown" class="category_dropdown" id="order_filter" onchange="getOrderFilter()">
+                    <select name="filter-sort" class="category_dropdown" id="filter-sort">
                         <option value="popular-asc">Popularity Ascending</option>
                         <option value="popular-des">Popularity Descending</option>
                         <option value="title-asc">A-Z Title Ascending</option>
@@ -196,30 +180,29 @@
 
                     <?php
                     if (isset($data)) {
-                        foreach ($data as $bookData) {
-                            foreach ($bookData as $value) {  ?>
+                        foreach ($data[0] as $value) {  ?>
                                 <!-- MOVIE ITEM -->
                                 <div class="card">
-                                    <a href="#" class="movie-item">
-                                        <img src="<?php echo LINK; ?>/image/movies/transformer.jpg" alt="">
+                                    <a href="<?php echo LINK."/detail/".$value["Movie"]["movie_id"]; ?>" class="movie-item">
+                                        <img style="width:100%;height:100%;" src="<?php echo POSTER_URL.$value["Movie"]["poster"]; ?>" onerror="this.onerror=null;this.src='<?php echo LINK.'/image/tmp.jpg'; ?>';"/>
                                         <div class="movie-item-content">
-                                            <div class="movie-item-title">
-                                                Transformer
+                                            <div class="movie-item-title" style="font-size:16px;">
+                                                <?php echo $value["Movie"]["title"]; ?>
                                             </div>
                                             <div class="movie-infos">
                                                 <div class="movie-info">
                                                     <i class="bx bxs-star"></i>
-                                                    <span>9.5</span>
+                                                    <span><?php echo $value["Movie"]["rating"]; ?></span>
                                                 </div>
                                                 <div class="movie-info">
                                                     <i class="bx bxs-time"></i>
-                                                    <span>120 mins</span>
+                                                    <span><?php echo $value["Movie"]["length"]; ?> mins</span>
                                                 </div>
                                                 <div class="movie-info">
                                                     <span>HD</span>
                                                 </div>
                                                 <div class="movie-info">
-                                                    <span>16+</span>
+                                                    <span><?php if($value["Movie"]["isAdult"] == 1){echo "18+";}else{echo "All";} ?></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -227,7 +210,7 @@
                                 </div>
                                 <!-- END MOVIE ITEM -->
                     <?php
-                            }
+                            
                         }
                     }
                     ?>

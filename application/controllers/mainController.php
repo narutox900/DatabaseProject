@@ -15,6 +15,7 @@
 			// $books = $this->userModel->getAllBook();
 			// $this->view('home', $books);
 			$this->view('home');
+            print_r($_SESSION);
 		}
 	}
 ?>

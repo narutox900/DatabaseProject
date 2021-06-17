@@ -922,20 +922,14 @@
                             <div class="pricing-box">
                                 <div class="pricing-box-header">
                                     <div class="pricing-name">
-                                        Basic
+                                        1 month
                                     </div>
                                     <div class="pricing-price">
-                                        Free
+                                        $10
                                     </div>
                                 </div>
-                                <div class="pricing-box-content">
-                                    <p>Originals</p>
-                                    <p>Swich plans anytime</p>
-                                    <p><del>65+ top Live</del></p>
-                                    <p><del>TV Channels</del></p>
-                                </div>
                                 <div class="pricing-box-action">
-                                    <a href="#" class="btn btn-hover">
+                                    <a href="<?php echo LINK; ?>/login" class="btn btn-hover">
                                         <span>Register now</span>
                                     </a>
                                 </div>
@@ -945,20 +939,14 @@
                             <div class="pricing-box hightlight">
                                 <div class="pricing-box-header">
                                     <div class="pricing-name">
-                                        Premium
+                                        4 months
                                     </div>
                                     <div class="pricing-price">
-                                        $35.99 <span>/month</span>
+                                        $35
                                     </div>
                                 </div>
-                                <div class="pricing-box-content">
-                                    <p>Originals</p>
-                                    <p>Swich plans anytime</p>
-                                    <p><del>65+ top Live</del></p>
-                                    <p><del>TV Channels</del></p>
-                                </div>
                                 <div class="pricing-box-action">
-                                    <a href="#" class="btn btn-hover">
+                                    <a href="<?php echo LINK; ?>/login" class="btn btn-hover">
                                         <span>Register now</span>
                                     </a>
                                 </div>
@@ -968,20 +956,14 @@
                             <div class="pricing-box">
                                 <div class="pricing-box-header">
                                     <div class="pricing-name">
-                                        VIP
+                                        1 year
                                     </div>
                                     <div class="pricing-price">
-                                        $65.99 <span>/month</span>
+                                        $100
                                     </div>
                                 </div>
-                                <div class="pricing-box-content">
-                                    <p>Originals</p>
-                                    <p>Swich plans anytime</p>
-                                    <p><del>65+ top Live</del></p>
-                                    <p><del>TV Channels</del></p>
-                                </div>
                                 <div class="pricing-box-action">
-                                    <a href="#" class="btn btn-hover">
+                                    <a href="<?php echo LINK; ?>/login" class="btn btn-hover">
                                         <span>Register now</span>
                                     </a>
                                 </div>
@@ -1004,7 +986,7 @@
                             <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">i</span>x
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut veniam ex quos hic id nobis beatae earum sapiente! Quod ipsa exercitationem officiis non error illum minima iusto et. Dolores, quibusdam?
+                            This is our database lab final project.
                         </p>
                         <div class="social-list">
                             <a href="#" class="social-item">

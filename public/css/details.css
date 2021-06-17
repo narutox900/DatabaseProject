@@ -103,6 +103,6 @@
     color: white;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     border-radius: 40px;  
+    cursor: pointer;
   }

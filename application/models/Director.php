@@ -62,4 +62,12 @@ class Director extends Model {
         }
         return NULL;
     }
+
+    public function getDirectorAddMovie() {
+        $sql = "SELECT * FROM `director` LIMIT 20";
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
 }

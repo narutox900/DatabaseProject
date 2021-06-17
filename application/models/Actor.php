@@ -60,4 +60,12 @@ class Actor extends Model {
         }
         return NULL;
     }
+
+    public function getActorAddMovie() {
+        $sql = "SELECT * FROM `actor` LIMIT 20";
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
 }

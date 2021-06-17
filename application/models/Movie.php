@@ -107,7 +107,15 @@ class Movie extends Model {
     }
 
     function getAllMovie() {
-        $sql = "SELECT * FROM `movie` LIMIT 10";
+        $sql = "SELECT * FROM `movie` order by year desc LIMIT 50";
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
+
+    function getAllLanguage() {
+        $sql = "SELECT DISTINCT language from movie";
         if ($this->db) {
             return $this->db->query($sql);
         }
@@ -324,108 +332,42 @@ class Movie extends Model {
         return NULL;
     }
 
-    # de sang model actor
+    public function createMovie($movie_id, $title, $language, $year, $rating, $length, $isAdult, $description, $poster) {
+        $query = "INSERT INTO `movie` (movie_id, title, language, year, rating, length, isAdult, description, poster) VALUES ('$movie_id', '$title', '$language', $year, $rating, $length, $isAdult, '$description', '$poster');";
+        if ($this->db) {
+            return $this->db->query($query);
+        }
+        return NULL;
+    }
+
+    public function updateMovie($movie_id, $title, $language, $year, $rating, $length, $isAdult, $description, $poster) {
+        $query = "UPDATE `movie` SET title = `$title`, language = '$language', year = $year, rating = $rating, length = $length, isAdult = $isAdult, description = '$description', poster = '$poster' WHERE movie_id = '$movie_id' ";
+        if ($this->db) {
+            return $this->db->query($query);
+        }
+        return NULL;
+    }
+
+    public function deleteMovie($id) {
+        $query = "DELETE FROM `movie` WHERE movie_id = `$id`";
+        if ($this->db) {
+            return $this->db->query(($query));
+        }
+    }
+
+    function issetMovieId($movie_id) {
+        $sql = "SELECT COUNT(*) as count FROM movie WHERE movie_id = '".$movie_id ."'";
+        if ($this->db) {
+            $value = $this->db->query($sql);
+            if(isset($value[0][""]["count"])){
+                return $value[0][""]["count"];
+            }else{
+                return $value[0]["Movie"]["count"];
+            }
+        }
+        return NULL;
+    }
     
-
-    
-
-    // ADS:AD
-
-    function getBookByName($bookName) {
-        $sql = "SELECT * FROM `book` WHERE title LIKE '%" . $bookName . "%' ";
-        // echo $sql;
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    function getBookName($name) {
-        $sql = "SELECT * FROM `book` WHERE title LIKE '%" . $name . "%' ";
-        // echo $sql;
-        if ($this->db) {
-            return  $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    function getLatestInsertedBook() {
-        $sql = "SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1 ";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    function addBookToDb() {
-        $sql = "INSERT INTO `book` 
-                    (`book_id`, `title`, `author`, `description`, `rating`, `number_of_review`, `publisher`, `thumbnail_address`, `bookPDF`) 
-                    VALUES 
-                    (NULL, '" . $this->title . "','" . $this->author . "','" . $this->description . "', '0', '0', '" . $this->publisher . "', '" . $this->thumbnail . "', '" . $this->PDF . "');";
-        if ($this->db) {
-            if ($this->db->query($sql)) {
-                $book_id = $this->getLatestInsertedBook();
-                foreach ($this->category as $category_value) {
-                    $sql = "INSERT INTO `bookcategory` (`book_id`, `category_id`) VALUES ('" . $book_id[0]['Book']['book_id'] . "', '" . $category_value . "')";
-                    $this->db->query($sql);
-                }
-            };
-        }
-        return NULL;
-    }
-
-    function updateBook($id) {
-        $sql = "UPDATE `book` 
-                    SET `title`='" . $this->title . "',
-                        `author`='" . $this->author . "',
-                        `description`='" . $this->description . "',
-                        `publisher`='" . $this->publisher . "',
-                        `thumbnail_address`='" . $this->thumbnail . "',
-                        `bookPDF`='" . $this->PDF . "' 
-                    WHERE `book_id`=" . $id;
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    function updateCategory($book_id) {
-        echo $book_id;
-        $sql = "DELETE FROM `bookcategory` WHERE `book_id`=" . $book_id;
-        $this->db->query($sql);
-        foreach ($this->category as $category_key => $value) {
-            print("<pre>" . print_r($category_key, true) . "</pre>");
-            $sql = "INSERT INTO `bookcategory` (`book_id`, `category_id`) VALUES ('" . $book_id . "', '" . $value . "')";
-            $this->db->query($sql);
-        }
-        return;
-    }
-
-    function deleteBook($id) {
-        $sqlDeleteBookCategory = "DELETE FROM `bookcategory` WHERE book_id=" . $id;
-        $sql = "DELETE FROM `book` WHERE book_id = " . $id;
-        if ($this->db) {
-            $this->db->query($sqlDeleteBookCategory);
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    function getAllPublisher() {
-        $sql = "SELECT DISTINCT publisher FROM book";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    function getAllAuthor() {
-        $sql = "SELECT DISTINCT author FROM book";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
 
     function getBookByFilter($filter) {
         $sql = "SELECT * FROM `book`";

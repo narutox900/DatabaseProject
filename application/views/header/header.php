@@ -7,7 +7,7 @@
             </a>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="<?php echo LINK; ?>">Home</a></li>
-                <li><a href="<?php echo LINK; ?>/search">Filter</a></li>
+                <li><a href="<?php echo LINK; ?>/search">Search</a></li>
                 <li><a href="<?php echo LINK; ?>/favourite">Favourite</a></li>
                 <li>
                     <a href="<?php echo LINK; ?>/login" class="btn btn-hover">

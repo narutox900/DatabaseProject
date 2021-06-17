@@ -33,6 +33,8 @@
                 $_SESSION['username'] = $this->userModel->getName();
                 $_SESSION['role'] = $this->userModel->getRole();
                 $_SESSION['user_id'] = $this->userModel->getId();
+                $_SESSION['date_of_birth'] = $this->userModel->getDateOfBirth();
+                $_SESSION['expired_date'] = $this->userModel->getExpiredDate();
                 $directory = getAbsolutePath();
                 header("Location: http://$_SERVER[HTTP_HOST]$directory");
             }
@@ -63,7 +65,7 @@
                     break;
                 default:
                     $this->view('login/signupfailed');
-              }
+            }
             $this->userModel->setExpiredDate($expired_date);
             $this->userModel->setPaid($_POST["signup_expired"]);
             if ($this->userModel->getSignUpStatus()){

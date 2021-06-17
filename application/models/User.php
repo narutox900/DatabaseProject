@@ -92,6 +92,35 @@ class User extends Model
         return $this->paid;
     }
 
+    public function getUserInformationById($user_id){
+        $sql = "SELECT * FROM `user` WHERE user_id = " . $user_id;
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
+
+    public function checkPassword($email,$pw){
+        $sql = "SELECT * FROM `user` WHERE email = '" . $email . "' AND password = '". $pw . "'";
+        if ($this->db->query($sql) != NULL) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public function editUserInformation($user_id,$email,$password,$name,$date_of_birth){
+        $sql = "SELECT * FROM `user` WHERE email='".$email."'";
+        if ($value = $this->db->query($sql)) {
+            if($value[0]["User"]["user_id"] == $user_id){
+                $sql = "UPDATE `user` SET `password` = '". $password ."', `name` = '". $name ."', `date_of_birth` = '". $date_of_birth  ."' WHERE `user`.`user_id` = ".$user_id;
+                return $this->db->query($sql);
+            }else{
+                return NULL;
+            }
+        }
+        return NULL;
+    }
+
     public function getAllUser()
     {
         $sql = "SELECT * from user";
@@ -128,6 +157,16 @@ class User extends Model
             }
         }
         return 0;
+    }
+
+    public function updateExpiredDateById($user_id,$paid,$expired_date){
+        $value = $this->getUserInformationById($user_id);
+        $tmp = $value[0]["User"]["paid"] + $paid;
+        $sql = "UPDATE `user` SET `paid` = ". $tmp .",`expired_date` = '". $expired_date ."' WHERE `user`.`user_id` = ".$user_id;
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
     }
 
     public function getLatestUser(){

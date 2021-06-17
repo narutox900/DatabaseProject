@@ -2,12 +2,14 @@
 <div class="book_detail_section">
     <div class="book_detail_section_1">
         <div class="window__slider__img-container">
-            <img src="<?php echo LINK."/image/movies/blood-shot.jpg"; ?>"/>
+            <img style="width:400px;height:600px;" src="<?php echo POSTER_URL.$data[0]["Movie"]["poster"]; ?>" onerror="this.onerror=null;this.src='<?php echo LINK.'/image/tmp.jpg'; ?>';"/>
             <div class="window__right">
                 <h1><?php echo $data[0]["Movie"]["title"]; ?></h1>
                 <p>Language: <?php echo $data[0]["Movie"]["language"]; ?></p>
                 <p>Year: <?php echo $data[0]["Movie"]["year"]; ?></p>
                 <p>Rating: <?php echo $data[0]["Movie"]["rating"]; ?></p>
+                <p>Runtime: <?php echo $data[0]["Movie"]["length"]; ?> minutes</p>
+                <p>Age: <?php if($data[0]["Movie"]["isAdult"]){echo "Adult";}else{echo "Every age";} ?></p>
                 <a href="<?php echo LINK."/read/".$data[0]["Movie"]["movie_id"]; ?>"><button class="detail-button">Watch Movie</button></a>
             </div>
         </div>
