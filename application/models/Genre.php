@@ -26,50 +26,6 @@ class Genre extends Model {
         return $this->name;
     }
 
-    public function getAllCategory() {
-        $sql = "SELECT * FROM category";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-    public function getCategoryById($id) {
-        $sql = "SELECT * FROM category WHERE category_id =" . $id;
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    public function editCategory($id) {
-
-        $sql = "UPDATE `category` SET `category_name`='" . $this->name . "' WHERE category_id =" . $id;
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    public function addCategory() {
-        $sql = "INSERT INTO `category`(`category_id`, `category_name`) VALUES (NULL, '" . $this->name . "')";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    public function deleteCategory($id) {
-
-        $sql = "DELETE FROM `bookcategory` WHERE `category_id`=" . $id;
-        $this->db->query($sql);
-        $sql = "DELETE FROM `category` WHERE category_id =" . $id;
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-
     public function getMovieGenreByMovieID($id) {
         $sql = "SELECT genre_id, genre_name FROM `movie_genre` NATURAL JOIN `genre` WHERE movie_id = '$id'";
         if ($this->db) {
@@ -78,7 +34,7 @@ class Genre extends Model {
         return NULL;
     }
 
-    public function getAllGenre($id) {
+    public function getAllGenre() {
         $sql = "SELECT genre_id, genre_name FROM `genre`";
         if ($this->db) {
             return $this->db->query($sql);

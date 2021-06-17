@@ -106,8 +106,8 @@ class Movie extends Model {
         return $this->poster;
     }
 
-    function getAllBook() {
-        $sql = "SELECT * FROM `book`";
+    function getAllMovie() {
+        $sql = "SELECT * FROM `movie` LIMIT 10";
         if ($this->db) {
             return $this->db->query($sql);
         }

@@ -156,7 +156,7 @@
 	padding-top: 2rem;
 }
 .category__product__filter__by__category h3, .category__product__filter__by__publisher h3, .category__product__filter__by__author h3{
-	padding-bottom: 1rem ;
+	padding-bottom: 0.3rem ;
 }
 
 /* Customize the label (the container) */
@@ -298,13 +298,12 @@
   }
 
   .category__dropdown__div{
-	text-align: right !important;
 	user-select: none;
 	outline: none;
 }
 
   .category_dropdown {
-    width: 40%;
+    width: 80%;
     height: 45px;
     border-radius: 30px;
     padding: 11px 19px 11px 18px;
