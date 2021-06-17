@@ -132,17 +132,32 @@ class Movie extends Model {
     }
 
     public function getMovieFromSearch($title, $yearFrom, $yearEnd, $ratingFrom, $ratingEnd, $genres, $isAdult, $language, $plot, $actor, $director, $runtimeFrom, $runtimeEnd, $display, $order) {
-        if ($yearEnd >= $yearFrom && ($yearEnd != 0 || $yearFrom != 0)) {
+        if ($yearEnd != 0 || $yearFrom != 0) {
+            if ($yearEnd < $yearFrom) {
+                $tmp = $yearEnd;
+                $yearEnd = $yearFrom;
+                $yearFrom = $tmp;
+            }
             $year = true;
         } else {
             $year = false;
         }
-        if ($ratingEnd >= $ratingFrom && ($ratingEnd != 0 || $ratingFrom != 0)) {
+        if (($ratingEnd != 0 || $ratingFrom != 0)) {
+            if ($ratingEnd < $ratingFrom) {
+                $tmp = $ratingFrom;
+                $ratingFrom = $ratingEnd;
+                $ratingEnd = $tmp;
+            }
             $rating = true;
         } else {
             $rating = false;
         }
-        if ($runtimeEnd >= $runtimeFrom && ($runtimeEnd != 0 || $runtimeFrom != 0)) {
+        if (($runtimeEnd != 0 || $runtimeFrom != 0)) {
+            if ($runtimeEnd < $runtimeFrom) {
+                $tmp = $runtimeFrom;
+                $runtimeFrom = $runtimeEnd;
+                $runtimeEnd = $tmp;
+            }
             $runtime = true;
         } else {
             $runtime = false;
@@ -231,7 +246,17 @@ class Movie extends Model {
             $query .= $genres_query;
         }
         $query .= " WHERE";
+        if ($title) {
+            if ($flag) {
+                $query .= $and;
+            }
+            $query .= " title LIKE '%$title$'";
+            $flag = true;
+        }
         if ($year) {
+            if ($flag) {
+                $query .= $and;
+            }
             $query .= " year BETWEEN $yearFrom AND $yearEnd";
             $flag = true;
         }
