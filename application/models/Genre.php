@@ -26,6 +26,38 @@ class Genre extends Model {
         return $this->name;
     }
 
+    public function createGenre($id, $name) {
+        $query = "INSERT INTO `genre` (genre_id, genre_name) VALUES ('$id','$name');";
+        if ($this->db) {
+            return $this->db->query($query);
+        }
+        return NULL;
+    }
+
+    public function updateGenre($id, $name) {
+        $query = "UPDATE `genre` SET genre_name = `$name` WHERE genre_id = `$id`";
+        if ($this->db) {
+            return $this->db->query($query);
+        }
+        return NULL;
+    }
+
+    public function deleteGenre($id) {
+        $query = "DELETE FROM `genre` WHERE genre_id = `$id`";
+        if ($this->db) {
+            return $this->db->query(($query));
+        }
+        return NULL;
+    }
+
+    public function insertMovieGenre($movie_id, $genre_id) {
+        $query = "INSERT INTO `movie_genre` (movie_id,genre_id) VALUES ('$movie_id','$genre_id')";
+        if ($this->db) {
+            return $this->db->query(($query));
+        }
+        return NULL;
+    }
+
     public function getMovieGenreByMovieID($id) {
         $sql = "SELECT genre_id, genre_name FROM `movie_genre` NATURAL JOIN `genre` WHERE movie_id = '$id'";
         if ($this->db) {

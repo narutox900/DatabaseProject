@@ -325,53 +325,9 @@ class Movie extends Model {
     }
 
     # de sang model actor
-    public function getActorById($id) {
-        $sql = "SELECT * FROM `actor` WHERE actor_id = '$id'";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
+    
 
-    public function getDirectorById($id) {
-        $sql = "SELECT * FROM `director` WHERE director_id = '$id'";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    public function getActorInMovieById($id) {
-        $sql = "SELECT actor_id, actor_name FROM `movie_actor` NATURAL JOIN `actor` WHERE movie_id = '$id'";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    public function getDirectorInMovieById($id) {
-        $sql = "SELECT director_id, director_name FROM `movie_director` NATURAL JOIN `director` WHERE movie_id = '$id'";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    public function getMovieByActorId($id) {
-        $sql = "SELECT movie_id, title, poster FROM `movie_actor` NATURAL JOIN `movie` WHERE actor_id ='$id'";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
-
-    public function getMovieByDirectorId($id) {
-        $sql = "SELECT movie_id, title, poster FROM `movie_director` NATURAL JOIN `movie` WHERE director_id ='$id'";
-        if ($this->db) {
-            return $this->db->query($sql);
-        }
-        return NULL;
-    }
+    
 
     // ADS:AD
 
