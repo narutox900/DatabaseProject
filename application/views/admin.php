@@ -17,20 +17,5 @@
                 <a href="<?php echo LINK; ?>/admin/userList">User manage</a>
             </div>
         </div>
-        <div class="box d">
-            <div class="center__box">
-                <a href="<?php echo LINK; ?>/admin/crudGenre">Genre manage</a>
-            </div>
-        </div>
-        <div class="box e">
-            <div class="center__box">
-                <a href="<?php echo LINK; ?>/admin/crudActor">Actor manage</a>
-            </div>
-        </div>
-        <div class="box f">
-            <div class="center__box">
-                <a href="<?php echo LINK; ?>/admin/crudDirector">Director manage</a>
-            </div>
-        </div>
     </div>
 </div>

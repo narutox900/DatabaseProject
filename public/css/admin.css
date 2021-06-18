@@ -43,6 +43,7 @@
 
 .admin__layout tr:nth-child(even) {
     background-color: #dddddd;
+    color: black;
 }
 
 .admin__layout h1{

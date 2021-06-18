@@ -134,132 +134,6 @@
             
 		}
 
-		public function editBook($id)
-        {
-            $book = $this->userModel->getBookById($id);
-            $category = $this->categoryModel->getAllCategory();
-            $data = array();
-            array_push($data, $book);
-            array_push($data, $category);
-            if (!$this->roleValidation('adminEditBook', $data))
-            {
-                $this->redirectToMain();
-            }
-        }
-
-        public function editBookQuery()
-        {
-            $allowedthumbnailExtensions = array('jpg', 'png', ' jpeg');
-            $allowedbookPDFExtensions = array('pdf');
-            $directory = getAbsolutePath();
-            $uploadFileDir = "../public/";
-
-            if ($_FILES["thumbnail"]["size"] != 0)
-            {
-                //Get thumbnail file
-                $thumbnail["tmpPath"] = $_FILES['thumbnail']['tmp_name'];
-                $thumbnail["name"] = $_FILES['thumbnail']['name'];
-                $thumbnail["size"] = $_FILES['thumbnail']['size'];
-                $thumbnail["type"] = $_FILES['thumbnail']['type'];
-                $thumbnailNameCmps = explode(".",$thumbnail["name"]);
-                $thumbnail["extension"] = strtolower(end($thumbnailNameCmps));
-                if (!in_array($thumbnail["extension"], $allowedthumbnailExtensions)) {
-                    header("Location: http://$_SERVER[HTTP_HOST]$directory/admin/addBook?retry=thumbnail");
-                    exit(1);
-                }
-                $thumbnail["newFileName"] = md5(time() . $thumbnail["name"]) . '.' . $thumbnail["extension"];
-                $thumbnail["url"] = "fileupload/thumbnail/" . $thumbnail["newFileName"];
-                $thumbnail["path"] = $uploadFileDir . $thumbnail["url"];
-                if(!move_uploaded_file($thumbnail["tmpPath"], $thumbnail["path"])){
-                    echo 'There was some error moving the thumbnail file to upload directory. Please make sure the upload directory is writable by web server.';
-                    exit(1);
-                }
-                echo $thumbnail["url"];
-                echo $_POST["oldBookThumbnail"];
-                if (unlink($_POST["oldBookThumbnail"])){
-                    echo "succesfully deleted";
-                }
-            }
-            else
-            {
-                $thumbnail["url"] = $_POST["oldBookThumbnail"];
-            }
-            if ($_FILES["bookPDF"]["size"] != 0)
-            {
-                $bookPDF["tmpPath"] = $_FILES['bookPDF']['tmp_name'];
-                $bookPDF["name"] = $_FILES['bookPDF']['name'];
-                $bookPDF["size"] = $_FILES['bookPDF']['size'];
-                $bookPDF["type"] = $_FILES['bookPDF']['type'];
-                $bookPDFNameCmps = explode(".",$bookPDF["name"]);
-                $bookPDF["extension"] = strtolower(end($bookPDFNameCmps));
-                if (!in_array($bookPDF["extension"], $allowedbookPDFExtensions)) {
-                    header("Location: http://$_SERVER[HTTP_HOST]$directory/admin/addBook?retry=bookPDF");
-                    //exit(1);
-                }
-                $bookPDF["newFileName"] = md5(time() . $bookPDF["name"]) . '.' . $bookPDF["extension"];
-                $bookPDF["url"] = "fileupload/bookPDF/" . $bookPDF["newFileName"];
-                $bookPDF["path"] = $uploadFileDir . $bookPDF["url"];
-                if(!move_uploaded_file($bookPDF["tmpPath"], $bookPDF["path"])){
-                    exit(1);
-                }
-                echo "\n".$bookPDF["url"];
-                if (unlink($_POST["oldBookPDF"])){
-                    echo "succesfully deleted";
-                }
-            }
-
-            else
-            {
-                echo "No bookPDF";
-                $bookPDF["url"] = $_POST["oldBookPDF"];
-            }
-
-            $this->userModel->setTitle($_POST["title"]);
-            $this->userModel->setAuthor($_POST["author"]);
-            $this->userModel->setDescription($_POST["description"]);
-            $this->userModel->setPublisher($_POST["publisher"]);
-            $this->userModel->setThumbnail($thumbnail["url"]);
-            $this->userModel->setBookPDF($bookPDF["url"]);
-
-            if (isset($_POST["add-book-category"]))
-            {
-                $category = $_POST["add-book-category"];
-                $this->userModel->setCategory($category);
-                $this->userModel->updateCategory($_POST["book_id"]);
-            }
-
-            if ($this->validHTMLEntities($_POST["title"]) &&
-                $this->validHTMLEntities($_POST["author"]) &&
-                $this->validHTMLEntities($_POST["description"]) &&
-                $this->validHTMLEntities($_POST["publisher"]) )
-            {
-                $this->userModel->updateBook($_POST["book_id"]);
-            }
-            header("Location: http://$_SERVER[HTTP_HOST]$directory/admin/listBook");
-
-        }
-
-        public function deleteBook($id)
-        {
-            if ($_SESSION['role'] && $_SESSION['role'] == 1) {
-                $this->userModel->deleteBook($id);
-            }
-            $this->redirectToAdminListBook();
-        }
-
-        public function takeThumbnailPath($fileArray)
-        {
-            $thumbnail["name"] = $fileArray['name'];
-            $thumbnail["size"] = $fileArray['size'];
-            $thumbnail["type"] = $fileArray['type'];
-            $thumbnailNameCmps = explode(".",$thumbnail["name"]);
-            $thumbnail["extension"] = strtolower(end($thumbnailNameCmps));
-            $thumbnail["newFileName"] = md5(time() . $thumbnail["name"]) . '.' . $thumbnail["extension"];
-            $thumbnail["url"] = "fileupload/thumbnail/" . $thumbnail["newFileName"];
-
-            return $thumbnail["url"];
-        }
-
         public function userList()
         {
             $modelForUser = $this->model('User');
@@ -268,22 +142,6 @@
             {
                 $this->redirectToMain();
             }
-        }
-
-        public function guestList()
-        {
-            $emails = $this->emailModel->getAllEmail();
-            if (!$this->roleValidation('adminListEmail', $emails))
-            {
-                $this->redirectToMain();
-            }
-        }
-
-        public function deleteGuestEmail($email)
-        {
-            $this->emailModel->setEmail($email);
-            $this->emailModel->deleteEmail();
-            $this->redirectToAdminGuestList();
         }
 
         public function deleteUser($id)
@@ -295,61 +153,82 @@
             header("Location: http://$_SERVER[HTTP_HOST]$directory/admin/userList");
         }
 
-        public function crudCategory($id = 0)
+        public function editMovie($id)
         {
-            $category = $this->categoryModel->getAllCategory();
-            $categoryToEdit = $this->categoryModel->getCategoryById($id);
-
             $data = array();
-            array_push($data, $category);
-            array_push($data, $categoryToEdit);
-            if (!$this->roleValidation('adminCurdCategory', $data))
-            {
+            $genre = $this->genreModel->getAllGenre();
+            $actor = $this->actorModel->getActorAddMovie();
+            $director = $this->directorModel->getDirectorAddMovie();
+            $movie = $this->movieModel->getAllLanguage();
+            $old_movie = $this->movieModel->getMovieById($id);
+            array_push($data,$genre);
+            array_push($data,$actor);
+            array_push($data,$director);
+            array_push($data,$movie);
+            array_push($data,$old_movie);
+            if (!$this->roleValidation('adminEditMovie', $data)){
                 $this->redirectToMain();
             }
         }
 
-        public function addCategory()
-        {
-            var_dump($_POST);
-            if ($this->validHTMLEntities($_POST["category_name"]))
-            {
-                $this->categoryModel->setCategoryName($_POST["category_name"]);
-                $this->categoryModel->addCategory();
+        public function editMovieQuery()
+		{
+			if(!isset($_POST["edit_title"])){
+                $this->redirectToAdmin();
             }
-            $this->redirectToAdminListCategory();
-        }
-
-        public function editCategory($id)
-        {
-            var_dump($_POST);
-            if ($this->validHTMLEntities($_POST["category_name"]))
-            {
-                $this->categoryModel->setCategoryName($_POST["category_name"]);
-                $this->categoryModel->editCategory($id);
+            $movie_id = $_POST["edit_movie_id"];
+            $title = $_POST["edit_title"];
+            $language = $_POST["edit_language"];
+            $year = $_POST["edit_year"];
+            $rating = $_POST["edit_rating"];
+            $length = $_POST["edit_length"];
+            if(isset($_POST["edit_isadult"])){
+                $isAdult = 1;
+            }else{
+                $isAdult = 0;
             }
-            $this->redirectToAdminListCategory();
-        }
+            $description = $_POST["edit_description"];
+            $poster = $_POST["edit_poster"];
+            $genre = $_POST["edit_genre"];
+            $actor = $_POST["edit_actor"];
+            $director = $_POST["edit_director"];
 
-        public function deleteCategory($id)
-        {
-            $this->categoryModel->deleteCategory($id);
-            $this->redirectToAdminListCategory();
-        }
+            $genre = $this->genreModel->getMovieGenreByMovieID($movie_id);
+            $actor = $this->actorModel->getActorInMovieById($movie_id);
+            $director = $this->directorModel->getDirectorInMovieById($movie_id);
 
-        public function commentManage($id)
-        {
-            $reviews = $this->commentModel->getCommentByBookId($id);
-            if (!$this->roleValidation('adminManageComment', $reviews))
-            {
-                $this->redirectToMain();
+            foreach($genre as $data){
+                //echo $data;
+                $this->genreModel->deleteMovieGenre($movie_id,$data["Movie_genre"]["genre_id"]);
             }
-        }
+            
+            foreach($actor as $data){
+                //$this->actorModel->insertMovieActor($movie_id,$data);
+                $this->actorModel->deleteMovieActor($movie_id,$data["Movie_actor"]["actor_id"]);
+            }
 
-        public function deleteComment($id_book, $id_client)
-        {
-            echo $id_book . " and " . $id_client;
-            $this->commentModel->deleteComment($id_book, $id_client);
-            $this->redirectToAdminListBook();
-        }
+            foreach($director as $data){
+                //$this->directorModel->insertMovieDirector($movie_id,$data);
+                $this->directorModel->deleteMovieDirector($movie_id,$data["Movie_director"]["director_id"]);
+            }
+
+            if($this->movieModel->updateMovie($movie_id,$title,$language,$year,$rating,$length,$isAdult,$description,$poster) != NULL){
+                foreach($genre as $data){
+                    $this->genreModel->insertMovieGenre($movie_id,$data["Movie_director"]["genre_id"]);
+                }
+                
+                foreach($actor as $data){
+                    $this->actorModel->insertMovieActor($movie_id,$data["Movie_actor"]["actor_id"]);
+                }
+
+                foreach($director as $data){
+                    $this->directorModel->insertMovieDirector($movie_id,$data["Movie_director"]["director_id"]);
+                }
+
+                $this->redirectToAdminListMovie();
+            }else{
+                $this->redirectToAdmin();
+            };
+            
+		}
 	}

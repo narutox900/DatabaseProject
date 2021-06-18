@@ -46,7 +46,7 @@ class Actor extends Model {
     }
 
     public function getActorInMovieById($id) {
-        $sql = "SELECT actor_id, actor_name FROM `movie_actor` NATURAL JOIN `actor` WHERE movie_id = '$id'";
+        $sql = "SELECT actor_id, actor_name FROM `movie_actor` NATURAL JOIN `actor` WHERE movie_id = '$id' LIMIT 10";
         if ($this->db) {
             return $this->db->query($sql);
         }
@@ -67,5 +67,12 @@ class Actor extends Model {
             return $this->db->query($sql);
         }
         return NULL;
+    }
+
+    public function deleteMovieActor($movie_id, $actor_id) {
+        $query = "DELETE FROM `movie_actor` WHERE actor_id = `$actor_id` and movie_id = `$movie_id`";
+        if ($this->db) {
+            return $this->db->query($query);
+        }
     }
 }

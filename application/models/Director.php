@@ -70,4 +70,11 @@ class Director extends Model {
         }
         return NULL;
     }
+
+    public function deleteMovieDirector($movie_id, $director_id) {
+        $query = "DELETE FROM `movie_director` WHERE director_id = `$director_id` and movie_id = `$movie_id`";
+        if ($this->db) {
+            return $this->db->query($query);
+        }
+    }
 }

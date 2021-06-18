@@ -1,46 +1,44 @@
-<title>Administrator Dashboard: Book manager</title>
-<h1>List Book</h1>
+<title>Administrator Dashboard: Movie manager</title>
+<h1>List Movie</h1>
 <?php
 //    var_dump($data);
 
 ?>
 
 <div class="admin__layout">
-    <h2>Book Table</h2>
+    <h2>Movie Table</h2>
 
     <table>
         <tr>
-            <th>book_id</th>
+            <th>movie_id</th>
             <th>title</th>
-            <th>author</th>
+            <th>language</th>
             <th>description</th>
+            <th>year</th>
             <th>rating</th>
-            <th>number_of_review</th>
-            <th>publisher</th>
-            <th>thumbnail_address</th>
-            <th>bookPDF</th>
+            <th>length</th>
+            <th>isAdult</th>
+            <th>poster</th>
             <th>editButton</th>
             <th>deleteButton</th>
-            <th>see comment</th>
         </tr>
         <?php
-        foreach ($data as $book)
+        foreach ($data as $movie)
         {
 //            var_dump($book["Book"]);
         ?>
         <tr>
-            <td><?php echo $book["Book"]["book_id"];?></td>
-            <td><?php echo $book["Book"]["title"];?></td>
-            <td><?php echo $book["Book"]["author"];?></td>
-            <td><?php echo $book["Book"]["description"];?></td>
-            <td><?php echo $book["Book"]["rating"];?></td>
-            <td><?php echo $book["Book"]["number_of_review"];?></td>
-            <td><?php echo $book["Book"]["publisher"];?></td>
-            <td><?php echo $book["Book"]["thumbnail_address"];?></td>
-            <td><?php echo $book["Book"]["bookPDF"];?></td>
-            <td><a href="<?php echo LINK; ?>/admin/editBook/<?php echo $book["Book"]["book_id"];?>"><button>Edit</button></a></td>
-            <td><a onclick="return confirm('Are you sure you want to delete this book')" href="<?php echo LINK; ?>/admin/deleteBook/<?php echo $book["Book"]["book_id"];?>"><button>Delete</button></a></td>
-            <td><a href="<?php echo LINK; ?>/admin/commentManage/<?php echo $book["Book"]["book_id"];?>"><button>See comment</button></a></td>
+            <td><?php echo $movie["Movie"]["movie_id"];?></td>
+            <td><?php echo $movie["Movie"]["title"];?></td>
+            <td><?php echo $movie["Movie"]["language"];?></td>
+            <td><?php echo $movie["Movie"]["description"];?></td>
+            <td><?php echo $movie["Movie"]["year"];?></td>
+            <td><?php echo $movie["Movie"]["rating"];?></td>
+            <td><?php echo $movie["Movie"]["length"];?></td>
+            <td><?php echo $movie["Movie"]["isAdult"];?></td>
+            <td><?php echo $movie["Movie"]["poster"];?></td>
+            <td><a href="<?php echo LINK; ?>/admin/editMovie/<?php echo $movie["Movie"]["movie_id"];?>"><button>Edit</button></a></td>
+            <td><a onclick="return confirm('Are you sure you want to delete this movie')" href="<?php echo LINK; ?>/admin/deleteBook/<?php echo $movie["Movie"]["movie_id"];?>"><button>Delete</button></a></td>
         </tr>
         <?php
         }

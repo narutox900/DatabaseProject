@@ -241,7 +241,7 @@ class Movie extends Model {
         }
 
 
-        $query = " SELECT movie_id, title, year, rating, length FROM `movie`";
+        $query = " SELECT movie_id, title, year, rating, isAdult, poster, length FROM `movie`";
         $and = " AND";
         $flag = false;
         if ($actor) {
@@ -258,7 +258,7 @@ class Movie extends Model {
             if ($flag) {
                 $query .= $and;
             }
-            $query .= " title LIKE '%$title$'";
+            $query .= " title LIKE '%$title%'";
             $flag = true;
         }
         if ($year) {
@@ -293,8 +293,18 @@ class Movie extends Model {
             if ($flag) {
                 $query .= $and;
             }
-            $query .= " language = '$language'";
-            $flag = true;
+            $i = 0;
+            foreach ($language as $lang) {
+                if ($i == 0) {
+                    $query .= " (";
+                } else {
+                    $query .= " OR";
+                }
+                $query .= " language = '$lang'";
+                $i++;
+                $flag = true;
+            }
+            $query .= ")";
         }
         if ($plot) {
             if ($flag) {
@@ -321,11 +331,12 @@ class Movie extends Model {
             if ($flag) {
                 $query .= $and;
             }
-            $query .= $director_condition;
+            $query .= $genres_condition;
             $flag = true;
         }
         $query .= $order_query;
         $query .= $display_query;
+        echo $query;
         if ($this->db) {
             return $this->db->query($query);
         }
@@ -351,8 +362,9 @@ class Movie extends Model {
     public function deleteMovie($id) {
         $query = "DELETE FROM `movie` WHERE movie_id = `$id`";
         if ($this->db) {
-            return $this->db->query(($query));
+            return $this->db->query($query);
         }
+        return NULL;
     }
 
     function issetMovieId($movie_id) {
@@ -367,91 +379,37 @@ class Movie extends Model {
         }
         return NULL;
     }
-    
 
-    function getBookByFilter($filter) {
-        $sql = "SELECT * FROM `book`";
-        if (isset($filter)) {
-            if (count($filter["category"]) > 0 || count($filter["publisher"]) > 0 || count($filter["author"]) > 0 || $filter["rating"] > 0 || $filter["suggestion"] != "")
-                $sql = $sql . " WHERE ";
-            $and = 0;
-            if (count($filter["category"]) > 0) {                                 //Category filter
-                $tmp_sql = "(book_id IN (SELECT book_id FROM bookcategory WHERE category_id IN (";
-                $i = 0;
-                foreach ($filter["category"] as $value) {
-                    $tmp_sql = $tmp_sql . "'" . $value . "'";
-                    if (++$i != count($filter["category"])) {
-                        $tmp_sql = $tmp_sql . ",";
-                    }
-                }
-                $tmp_sql = $tmp_sql . "))) ";
-                $sql = $sql . $tmp_sql;
-                $and = 1;
-            }
-
-            if (count($filter["publisher"]) > 0) {                             //Publisher filter
-                if ($and == 1)
-                    $tmp_sql = "AND (publisher IN (";
-                else if ($and == 0)
-                    $tmp_sql = " (publisher IN (";
-                $i = 0;
-                foreach ($filter["publisher"] as $value) {
-                    $tmp_sql = $tmp_sql . "'" . $value . "'";
-                    if (++$i != count($filter["publisher"])) {
-                        $tmp_sql = $tmp_sql . ",";
-                    }
-                }
-                $tmp_sql = $tmp_sql . ")) ";
-                $sql = $sql . $tmp_sql;
-                $and = 1;
-            }
-
-            if (count($filter["author"]) > 0) {                                 //Author filter
-                if ($and == 1)
-                    $tmp_sql = "AND (author IN (";
-                else if ($and == 0)
-                    $tmp_sql = " (author IN (";
-                $i = 0;
-                foreach ($filter["author"] as $value) {
-                    $tmp_sql = $tmp_sql . "'" . $value . "'";
-                    if (++$i != count($filter["author"])) {
-                        $tmp_sql = $tmp_sql . ",";
-                    }
-                }
-                $tmp_sql = $tmp_sql . ")) ";
-                $sql = $sql . $tmp_sql;
-                $and = 1;
-            }
-
-            if ($filter["rating"] != 0) {                                        //Rating filter
-                if ($and == 1)
-                    $sql = $sql . "AND rating >= " . $filter["rating"];
-                else if ($and == 0)
-                    $sql = $sql . " rating >= " . $filter["rating"];
-                $and = 1;
-            }
-
-            if ($filter["suggestion"] != "") {                                        //Rating filter
-                if ($and == 1)
-                    $sql = $sql . "AND title like '%" . $filter["suggestion"] . "%' ";
-                else if ($and == 0)
-                    $sql = $sql . "title like '%" . $filter["suggestion"] . "%' ";
-            }
-
-            if ($filter["order"] == "old") {
-                //Default
-            } elseif ($filter["order"] == "new") {
-                $sql = $sql . " ORDER BY book_id DESC";
-            } elseif ($filter["order"] == "name") {
-                $sql = $sql . " ORDER BY title";
-            }
-            if ($this->db) {
-                return $this->db->query($sql);
-            } else {
-                return NULL;
-            }
-        } else {
-            return NULL;
+    function addHistory($user_id,$movie_id) {
+        $sql = "INSERT INTO `watch_history` (movie_id, user_id) VALUES ('$movie_id', '$user_id')";
+        if ($this->db) {
+            return $this->db->query($sql);
         }
+        return NULL;
     }
+
+    function getHistory($user_id) {
+        $sql = "SELECT * FROM `movie` NATURAL JOIN `watch_history` WHERE user_id = '$user_id'";
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
+
+    function addFavourite($user_id,$movie_id) {
+        $sql = "INSERT INTO `favorite_movie` (movie_id, user_id) VALUES ('$movie_id', '$user_id')";
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
+
+    function getFavourite($user_id) {
+        $sql = "SELECT * FROM `movie` NATURAL JOIN `favorite_movie` WHERE user_id = '$user_id'";
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
+    
 }

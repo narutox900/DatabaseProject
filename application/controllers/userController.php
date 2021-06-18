@@ -88,6 +88,8 @@
             if(isset($_POST['edit_new_password'])){
                 if($this->userModel->checkPassword($_POST["edit_email"],$_POST["edit_old_password"])){
                     $this->userModel->editUserInformation($_SESSION["user_id"],$_POST["edit_email"],$_POST["edit_new_password"],$_POST["edit_name"],$_POST["edit_dob"]);
+                    $_SESSION["name"] = $_POST["edit_name"];
+                    $_SESSION["date_of_birth"] = $_POST["edit_dob"];
                     $this->redirectToPersonalInformation();
                 }else{
                     $this->redirectToMain();
@@ -95,6 +97,22 @@
             }else{
                 $this->redirectToMain();
             }
+        }
+
+        public function history(){
+            if(!isset($_SESSION["user_id"])){
+                $this->redirectToMain();
+            }
+            $movie = $this->movieModel->getHistory($_SESSION["user_id"]);
+            $this->view('history',$movie);
+        }
+
+        public function favourite(){
+            if(!isset($_SESSION["user_id"])){
+                $this->redirectToMain();
+            }
+            $movie = $this->movieModel->getFavourite($_SESSION["user_id"]);
+            $this->view('favourite',$movie);
         }
 
 		public function roleValidation($view, $data){

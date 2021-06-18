@@ -50,6 +50,13 @@ class Genre extends Model {
         return NULL;
     }
 
+    public function deleteMovieGenre($movie_id, $genre_id) {
+        $query = "DELETE FROM `movie_genre` WHERE genre_id = `$genre_id` and movie_id = `$movie_id`";
+        if ($this->db) {
+            return $this->db->query($query);
+        }
+    }
+
     public function insertMovieGenre($movie_id, $genre_id) {
         $query = "INSERT INTO `movie_genre` (movie_id,genre_id) VALUES ('$movie_id','$genre_id')";
         if ($this->db) {

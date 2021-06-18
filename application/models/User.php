@@ -92,6 +92,14 @@ class User extends Model
         return $this->paid;
     }
 
+    public function checkAge($date_of_birth){
+        $sql = "SELECT FLOOR(DATEDIFF(NOW(), '".$date_of_birth."')/365) as age ";
+        if ($this->db) {
+            return $this->db->query($sql);
+        }
+        return NULL;
+    }
+
     public function getUserInformationById($user_id){
         $sql = "SELECT * FROM `user` WHERE user_id = " . $user_id;
         if ($this->db) {

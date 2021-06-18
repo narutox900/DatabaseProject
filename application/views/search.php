@@ -1,4 +1,3 @@
-
 <style>
     .category__banner {
         background-image: url("<?php echo LINK; ?>/image/slider_1.jpg");
@@ -12,7 +11,7 @@
 <div class="category__product">
     <div class="category__product__filter">
 
-        <form action="search/searchQuery" method="POST">
+        <form action="search" method="POST">
             <input type="hidden" name="search" value="1">
             <div class="category__product__filter__by__category">
                 <h3>Title</h3>
@@ -77,9 +76,9 @@
             </div>
 
             <div class="category__product__filter__by__category">
-                <h3>Adult Movie(18+ tag)</h3>
+                <h3>Include Adult Movie(18+ tag)</h3>
                 <label class="filter__by__category__container">
-                    <input type="checkbox" id="filter-isadult" name="filter-isadult" value="1">
+                    <input type="checkbox" id="filter-isadult" name="filter-isadult" value="1" <?php if($data[3][0][""]["age"] < 18){echo "disabled";}; ?>>
                     <span class="filter__by__category__checkmark"></span>
                 </label>
             </div>
